@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vaf-web-service
+spec:
+  selector:
+    app: vaf-web
+  ports:
+    - protocol: TCP
+      port: 3001
+      targetPort: 3001
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vaf-db-service
+spec:
+  selector:
+    app: vaf-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP
+

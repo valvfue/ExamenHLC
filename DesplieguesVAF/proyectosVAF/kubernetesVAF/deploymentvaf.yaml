@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vaf-web-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vaf-web
+  template:
+    metadata:
+      labels:
+        app: vaf-web
+    spec:
+      containers:
+      - name: vaf-web
+        image: victor/api-jardineria:latest
+        ports:
+        - containerPort: 3001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vaf-db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vaf-db
+  template:
+    metadata:
+      labels:
+        app: vaf-db
+    spec:
+      containers:
+      - name: vaf-db
+        image: postgres:latest
+        env:
+        - name: POSTGRES_DB
+          value: "Jardineria"
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: "pswJardineria"
+        ports:
+        - containerPort: 5432
+
